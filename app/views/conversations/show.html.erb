@@ -1,0 +1,16 @@
+<div class="chatroom">
+  <% @messages.each do |message| %>
+    <% if message.is_a?(GuestMessage) %>
+      <%= render 'guest_messages/message', message: message %>
+    <% end %>
+
+    <% if message.is_a?(AiMessage) %>
+      <%= render 'ai_messages/message', message: message %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= form_for [@conversation, GuestMessage.new] do |f| %>
+  <%= f.text_field :content %>
+  <%= f.submit 'Send Message' %>
+<% end %>
